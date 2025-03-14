@@ -4,7 +4,7 @@ import 'package:flutter_gamer/core/extensions/build_context_extrensions.dart';
 class DefaultButton extends StatelessWidget {
   const DefaultButton({super.key, required this.text, required this.onPressed});
   final String text;
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
 
   @override
   Widget build(BuildContext context) {
