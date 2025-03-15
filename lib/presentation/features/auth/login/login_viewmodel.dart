@@ -1,9 +1,15 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gamer/core/utils/validation_item.dart';
 import 'package:flutter_gamer/presentation/features/auth/login/login_state.dart';
 
 class LoginViewModel  extends ChangeNotifier{
+
+  final FirebaseAuth _firebaseAuth;
+
   LoginState _state =  LoginState();
+
+  LoginViewModel(this._firebaseAuth);
   LoginState get state => _state;
 
   
@@ -36,10 +42,15 @@ class LoginViewModel  extends ChangeNotifier{
     notifyListeners();
   }
 
-  login(){
+  login() async{
     if(_state.isValid){
       print('[email]=> ${_state.email.value}');
       print('[password]=> ${_state.password.value}');
+      final data = await _firebaseAuth.signInWithEmailAndPassword(
+        email: _state.email.value, 
+        password: _state.password.value
+      );
+     
     }
   }
 }

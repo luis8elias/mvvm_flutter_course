@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
+import 'package:flutter_gamer/core/di/configure_dependenices.dart';
 import 'package:flutter_gamer/core/extensions/build_context_extrensions.dart';
 import 'package:flutter_gamer/presentation/features/auth/login/login_viewmodel.dart';
 import 'package:flutter_gamer/presentation/features/auth/register/register_screen.dart';
@@ -13,7 +14,7 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (context) => LoginViewModel(),
+      create: (context) => LoginViewModel(locator.get()),
       child: _LoginScreenUI(),
     );
   }

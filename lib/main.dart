@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gamer/core/di/configure_dependenices.dart';
 import 'package:flutter_gamer/presentation/features/auth/login/login_screen.dart';
 
-void main() {
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await configureDependencies();
   runApp(const MyApp());
 }
 
@@ -19,7 +22,7 @@ class MyApp extends StatelessWidget {
           primary: Colors.lightGreen,
           onPrimary: Colors.black
         ),
-      ),
+      ) ,
       initialRoute: 'login',
       routes: {
         'login': (BuildContext context) => LoginScreen()
