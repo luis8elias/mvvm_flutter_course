@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:flutter_gamer/core/di/configure_dependenices.dart';
 import 'package:flutter_gamer/core/extensions/build_context_extrensions.dart';
+import 'package:flutter_gamer/presentation/features/auth/login/login_response.dart';
 import 'package:flutter_gamer/presentation/features/auth/login/login_viewmodel.dart';
 import 'package:flutter_gamer/presentation/features/auth/register/register_screen.dart';
 import 'package:flutter_gamer/presentation/widgets/buttons.dart';
@@ -28,6 +29,7 @@ class _LoginScreenUI extends StatelessWidget {
 
     final vm = context.read<LoginViewModel>();
     final reactiveVm = context.watch<LoginViewModel>();
+    LoginResponse(vm: vm, context: context);
 
     return Scaffold(
       body: SingleChildScrollView(

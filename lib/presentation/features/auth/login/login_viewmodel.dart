@@ -1,16 +1,19 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gamer/core/utils/validation_item.dart';
+import 'package:flutter_gamer/domain/use_case/auth/auth_usecases.dart';
+import 'package:flutter_gamer/domain/utils/resource.dart';
 import 'package:flutter_gamer/presentation/features/auth/login/login_state.dart';
 
 class LoginViewModel  extends ChangeNotifier{
 
-  final FirebaseAuth _firebaseAuth;
+  AuthUsecases _authUsecases;
 
   LoginState _state =  LoginState();
+  Resource _response = Init();
 
-  LoginViewModel(this._firebaseAuth);
+  LoginViewModel(this._authUsecases);
   LoginState get state => _state;
+  Resource get response => _response;
 
   
 
@@ -36,21 +39,25 @@ class LoginViewModel  extends ChangeNotifier{
     }
     if(password.length < 3){
       _state = _state.copyWith(
-        email: ValidationItem(error: 'Ingrese al menos 3 caracteres'),
+        password: ValidationItem(error: 'Ingrese al menos 3 caracteres'),
       );
     }
     notifyListeners();
   }
 
   login() async{
-    if(_state.isValid){
-      print('[email]=> ${_state.email.value}');
-      print('[password]=> ${_state.password.value}');
-      final data = await _firebaseAuth.signInWithEmailAndPassword(
-        email: _state.email.value, 
-        password: _state.password.value
+    if(_state.isValid){ 
+      _response = Loading();
+      notifyListeners();
+      _response = await _authUsecases.login.launch(
+        email: state.email.value, 
+        password: state.password.value,
       );
-     
+      notifyListeners();
     }
+  }
+
+  resetResponse(){
+    _response = Init();
   }
 }
